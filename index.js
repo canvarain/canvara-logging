@@ -14,6 +14,22 @@
  * @private
  */
 var winston = require('winston');
+// add file transport
+var logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.DailyRotateFile)({
+      name: 'info-file',
+      filename: '/var/log/canvara/info.log',
+      level: 'info'
+    }),
+    new (winston.transports.DailyRotateFile)({
+      name: 'error-file',
+      filename: '/var/log/canvara/error.log',
+      level: 'error'
+    })
+  ]
+});
+
 var DEFAULT_ERROR_MESSAGE = 'Internal Server Error';
 
 /**
@@ -22,7 +38,7 @@ var DEFAULT_ERROR_MESSAGE = 'Internal Server Error';
  * @param  {Error}      error           error instance
  */
 exports.error = function(message, error) {
-  winston.error(message || DEFAULT_ERROR_MESSAGE, error.stack);
+  logger.error(message || DEFAULT_ERROR_MESSAGE, error.stack);
 };
 
 /**
@@ -31,7 +47,7 @@ exports.error = function(message, error) {
  * @param  {Object}     reason          reason for warning
  */
 exports.warn = function(message, reason) {
-  winston.warn(message, reason);
+  logger.warn(message, reason);
 };
 
 /**
@@ -40,7 +56,7 @@ exports.warn = function(message, reason) {
  * @param  {Object}     data            any additional data associated with message
  */
 exports.info = function(message, data) {
-  winston.info(message, data);
+  logger.info(message, data);
 };
 
 /**
@@ -49,5 +65,5 @@ exports.info = function(message, data) {
  * @param  {Object}     data            any additional data associated with message
  */
 exports.debug = function(message, data) {
-  winston.debug(message, data);
+  logger.debug(message, data);
 };
