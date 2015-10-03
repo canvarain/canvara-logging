@@ -14,6 +14,13 @@
  * @private
  */
 var winston = require('winston');
+// default to system log directory
+var LOG_DIR = '/var/log/canvara';
+var fse = require('fs-extra');
+
+// ensure that the log directory exists
+fse.ensureDirSync(LOG_DIR);
+
 // add file transport
 var logger = new (winston.Logger)({
   transports: [

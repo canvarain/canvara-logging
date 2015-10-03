@@ -26,6 +26,7 @@
   "license": "LicenseRef-LICENSE",
   "main": "index.js",
   "dependencies": {
+    "fs-extra": "^0.24.0",
     "winston": "^1.0.0"
   },
   "devDependencies": {
